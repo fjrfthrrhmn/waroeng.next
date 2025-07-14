@@ -5,11 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { SheetsSchema } from '@/data/schema/sheets';
+import { sheetsSchema, SheetsSchema } from '@/data/schema/sheets';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
-export function DrawerAction() {
+export function FormDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -29,7 +30,7 @@ export function DrawerAction() {
           <Separator />
 
           <DrawerFooter>
-            <FormAppend />
+            <FormAddItem />
           </DrawerFooter>
         </div>
       </DrawerContent>
@@ -37,11 +38,10 @@ export function DrawerAction() {
   );
 }
 
-const FormAppend = () => {
+const FormAddItem = () => {
   const form = useForm<SheetsSchema>({
-    resolver: undefined,
-    mode: 'onBlur',
-    defaultValues: {},
+    resolver: zodResolver(sheetsSchema),
+    mode: 'all',
   });
 
   const onSubmit = (data: SheetsSchema) => console.log(data);
@@ -58,7 +58,6 @@ const FormAppend = () => {
               <FormControl>
                 <Input placeholder="Masukkan Nama Barang" {...field} />
               </FormControl>
-              {/* <FormDescription>This is your public display name.</FormDescription> */}
               <FormMessage />
             </FormItem>
           )}

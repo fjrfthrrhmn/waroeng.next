@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDownToLineIcon } from 'lucide-react';
-import { DrawerAction } from './drawerAction';
 import { DropdownBar } from './dropdownBar';
+import { FormDrawer } from './formDrawer';
 import { SearchBar } from './searchBar';
 
 export function ToolBar() {
@@ -15,7 +15,7 @@ export function ToolBar() {
           <span className="sr-only">Download</span>
         </Button>
 
-        <DrawerAction />
+        <FormDrawer />
 
         <DropdownBar />
       </div>

@@ -8,10 +8,10 @@ export const authClient = new google.auth.GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-export const googleSheets = google.sheets({ version: 'v4', auth: authClient });
+export const googleSheet = google.sheets({ version: 'v4', auth: authClient });
 
 export const headersSheets = async () => {
-  const res = await googleSheets.spreadsheets.values.get({
+  const res = await googleSheet.spreadsheets.values.get({
     spreadsheetId: process.env.GOOGLE_SHEETS_ID,
     range: 'Sheet1!A1:Z',
   });

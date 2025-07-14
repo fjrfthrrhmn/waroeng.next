@@ -9,3 +9,13 @@ export const authClient = new google.auth.GoogleAuth({
 });
 
 export const googleSheets = google.sheets({ version: 'v4', auth: authClient });
+
+export const headersSheets = async () => {
+  const res = await googleSheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEETS_ID,
+    range: 'Sheet1!A1:Z',
+  });
+
+  const headers = res.data.values?.[0] || [];
+  return headers;
+};

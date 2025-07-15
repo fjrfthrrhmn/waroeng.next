@@ -25,7 +25,7 @@ export function Hero() {
             </div>
             <div>
               <h1 className="mb-4 text-2xl font-bold tracking-tight text-pretty lg:text-5xl">
-                Cek Harga Barang <span className="bg-primary text-primary-foreground px-2">&quot;Waroeng&quot;</span>
+                Cek Harga Barang <span className="bg-primary text-primary-foreground px-2 rounded-lg">&quot;Waroeng&quot;</span>
               </h1>
               <p className="mx-auto max-w-3xl text-muted-foreground lg:text-xl">
                 Temukan daftar harga terbaru sayuran, sembako, dan barang kebutuhan lainnya.

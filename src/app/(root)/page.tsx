@@ -1,9 +1,9 @@
-import { SheetsTable } from './_components/table/sheetsTable';
+import { ProductsTable } from './_components/table/productsTable';
 
 export const metadata = {
   title: 'Beranda',
 };
 
 export default async function Home() {
-  return <SheetsTable />;
+  return <ProductsTable />;
 }

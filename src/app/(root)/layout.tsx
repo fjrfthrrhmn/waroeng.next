@@ -5,7 +5,7 @@ import { Summary } from './_components/summary';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main className="container xl:max-w-5xl mx-auto">
+      <main className="sm:container px-2 mx-auto">
         <Hero />
         <Summary />
         {children}

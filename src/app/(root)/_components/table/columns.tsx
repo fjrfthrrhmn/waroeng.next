@@ -1,61 +1,55 @@
 import { Button } from '@/components/ui/button';
+import { CATEGORY_PRODUCT } from '@/data/constants/product';
+import { Product } from '@/hooks/api/types';
+import { cn } from '@/lib/utils';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditIcon, Trash2Icon } from 'lucide-react';
 
-interface Type {
-  Name: string;
-  Price: number;
-  Kiloan: boolean;
-  Category: string;
-  Description: string;
-}
-
-export const columns: ColumnDef<Type>[] = [
+export const columns: ColumnDef<Product>[] = [
   {
-    id: 'ID',
+    id: 'index',
     header: 'ID',
     cell: ({ row }) => row.index + 1,
   },
   {
-    id: 'Name',
-    accessorKey: 'Name',
-    header: 'Nama Barang',
+    accessorKey: 'name',
+    header: 'Nama Produk',
   },
   {
-    id: 'Price',
-    accessorKey: 'Price',
+    accessorKey: 'price',
     header: 'Harga',
+    cell: ({ row }) => `Rp ${row.original.price.toLocaleString('id-ID')}`,
   },
   {
-    id: 'Kiloan',
-    accessorKey: 'Kiloan',
-    header: 'Kiloan',
-    cell: ({ row }) => row.original.Kiloan || '-',
-  },
-  {
-    id: 'Category',
-    accessorKey: 'Category',
+    accessorKey: 'category',
     header: 'Kategori',
-    cell: ({ row }) => row.original.Category || '-',
+    cell: ({ row }) => {
+      const category = row.original.category;
+      const colorCategory = CATEGORY_PRODUCT.find(item => item.value === category)?.color;
+
+      return <div className={cn('px-2 py-1 rounded-md w-max text-sm', colorCategory)}>{category}</div>;
+    },
   },
   {
-    id: 'Description',
-    accessorKey: 'Description',
+    accessorKey: 'description',
     header: 'Deskripsi',
-    cell: ({ row }) => row.original.Description || '-',
+    cell: ({ row }) => row.original.description || '-',
   },
   {
-    id: 'Actions',
+    id: 'actions',
     header: 'Aksi',
-    accessorFn: row => console.log(row),
-    cell: () => {
+    enableSorting: false,
+    enableHiding: false,
+    cell: ({ row }) => {
+      const product = row.original;
+
       return (
-        <div className="flex gap-2">
-          <Button variant="outline" size="icon">
-            <EditIcon />
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="icon" onClick={() => console.log('Edit:', product)}>
+            <EditIcon className="w-4 h-4" />
           </Button>
-          <Button variant="destructive" size="icon">
-            <Trash2Icon />
+          <Button variant="destructive" size="icon" onClick={() => console.log('Delete:', product.id)}>
+            <Trash2Icon className="w-4 h-4" />
           </Button>
         </div>
       );

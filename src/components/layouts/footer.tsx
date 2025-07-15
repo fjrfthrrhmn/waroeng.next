@@ -1,7 +1,8 @@
-import Image from 'next/image';
+import { SparklesIcon } from 'lucide-react';
 import React from 'react';
+import { Button } from '../ui/button';
 
-interface Footer7Props {
+interface FooterProps {
   logo?: {
     url: string;
     src: string;
@@ -25,11 +26,6 @@ interface Footer7Props {
   }>;
 }
 
-const defaultLegalLinks = [
-  { name: 'Terms and Conditions', href: '#' },
-  { name: 'Privacy Policy', href: '#' },
-];
-
 export function Footer({
   logo = {
     url: 'https://www.shadcnblocks.com',
@@ -38,34 +34,24 @@ export function Footer({
     title: 'Shadcnblocks.com',
   },
   description = 'A collection of components for your startup business or side project.',
-  copyright = '© 2024 Shadcnblocks.com. All rights reserved.',
-  legalLinks = defaultLegalLinks,
-}: Footer7Props) {
+  copyright = '&copy; 2024 Shadcnblocks.com. All rights reserved.',
+}: FooterProps) {
   return (
     <section className="py-20">
-      <div className="container">
-        <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
-          <div className="flex w-full flex-col justify-between gap-6 lg:items-start">
-            {/* Logo */}
-            <div className="flex items-center gap-2 lg:justify-start">
-              <a href={logo.url}>
-                <Image src={logo.src} alt={logo.alt} title={logo.title} className="h-8" width={32} height={32} />
-              </a>
-              <h2 className="text-xl font-semibold">{logo.title}</h2>
-            </div>
-            <p className="text-muted-foreground max-w-[70%] text-sm">{description}</p>
+      <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
+        <div className="flex flex-col gap-2 lg:justify-start">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <Button size="icon">
+              <SparklesIcon />
+            </Button>
+            <h2 className="text-xl font-semibold">{logo.title}</h2>
           </div>
+          <p className="text-muted-foreground w-full sm:max-w-[80%] text-sm">{description}</p>
         </div>
-        <div className="text-muted-foreground mt-8 flex flex-col justify-between gap-4 border-t py-8 text-xs font-medium md:flex-row md:items-center md:text-left">
-          <p className="order-2 lg:order-1">{copyright}</p>
-          <ul className="order-1 flex flex-col gap-2 md:order-2 md:flex-row">
-            {legalLinks.map((link, idx) => (
-              <li key={idx} className="hover:text-primary">
-                <a href={link.href}> {link.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      </div>
+
+      <div className="text-muted-foreground mt-8 text-center sm:text-end gap-4 border-t py-8 text-xs font-medium">
+        <p className="order-2 lg:order-1">{copyright}</p>
       </div>
     </section>
   );

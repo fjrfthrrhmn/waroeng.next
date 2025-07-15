@@ -1,4 +1,4 @@
-import { ProductsTable } from './_components/table/ProductsTable';
+import { ProductsTable } from './_components/table/ProductTable';
 
 export const metadata = {
   title: 'Beranda',

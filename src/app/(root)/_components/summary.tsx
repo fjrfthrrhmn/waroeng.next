@@ -12,7 +12,7 @@ interface AboutProps {
   };
 }
 
-export function About({
+export function Summary({
   quote = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig doloremque mollitia fugiat omnis! Porro facilis quo animi consequatur. Explicabo.',
   author = {
     name: 'Jessen',

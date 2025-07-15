@@ -6,8 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { sheetsSchema, SheetsSchema } from '@/data/schema/sheets';
+import { useAppendSheet } from '@/service/api/sheets';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 export function FormDrawer() {
@@ -39,12 +41,19 @@ export function FormDrawer() {
 }
 
 const FormAddItem = () => {
+  const { mutate } = useAppendSheet();
   const form = useForm<SheetsSchema>({
     resolver: zodResolver(sheetsSchema),
-    mode: 'all',
+    mode: 'onChange',
+    defaultValues: {
+      Name: '',
+      Price: '',
+      Category: '',
+      Description: '',
+    },
   });
 
-  const onSubmit = (data: SheetsSchema) => console.log(data);
+  const onSubmit = useCallback((data: SheetsSchema) => mutate(data), [mutate]);
 
   return (
     <Form {...form}>
@@ -70,7 +79,7 @@ const FormAddItem = () => {
             <FormItem>
               <FormLabel>Harga Barang</FormLabel>
               <FormControl>
-                <Input placeholder="Masukkan Harga Barang" {...field} />
+                <Input type="number" placeholder="Masukkan Harga Barang" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -16,7 +16,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   loading: boolean;
   error: boolean;
-  withSearch: boolean;
+  withSearch?: boolean;
 }
 
 export function DataTable<TData, TValue>({ columns, data, loading, error, withSearch = true }: DataTableProps<TData, TValue>) {

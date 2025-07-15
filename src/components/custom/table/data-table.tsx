@@ -2,8 +2,8 @@
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
+import { FormAddProduct } from '@/app/(root)/_components/Form';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { FormAddProduct } from '@/pages/home/_components/Form';
 import { FilterIcon, PlusIcon } from 'lucide-react';
 import { DataTableControls } from './data-table-control';
 import { DataTableFilter } from './data-table-filter';

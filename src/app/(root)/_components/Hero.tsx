@@ -1,9 +1,9 @@
-import { ExternalLink, StoreIcon } from 'lucide-react';
+import { StoreIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
-
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
+import { heroSection } from '@/data/constants';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Hero() {
   return (
@@ -20,28 +20,39 @@ export function Hero() {
       <div className="relative z-10">
         <div className="mx-auto flex max-w-5xl flex-col items-center">
           <div className="flex flex-col items-center gap-6 text-center">
-            <div className="rounded-xl bg-background/30 p-4 shadow-lg backdrop-blur-sm">
+            <div className="rounded-xl bg-background/30 p-2 shadow-lg backdrop-blur-sm">
               <StoreIcon className="h-10 w-10" />
             </div>
             <div>
-              <h1 className="mb-4 text-2xl font-bold tracking-tight text-pretty lg:text-5xl">
-                Cek Harga Barang <span className="bg-primary text-primary-foreground px-2 rounded-lg">&quot;Waroeng&quot;</span>
+              <h1 className="text-3xl font-bold">
+                {heroSection.headline.title}{' '}
+                <span className="bg-primary text-primary-foreground px-2 rounded-lg">{heroSection.headline.highlight}</span>
               </h1>
-              <p className="mx-auto max-w-3xl text-muted-foreground lg:text-xl">
-                Temukan daftar harga terbaru sayuran, sembako, dan barang kebutuhan lainnya.
-              </p>
+              <p className="mx-auto max-w-3xl text-muted-foreground lg:text-xl">{heroSection.headline.desc}</p>
             </div>
+
+            {/* <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" /> */}
 
             <div className="mt-6 flex justify-center flex-wrap gap-3">
-              <Button className="shadow-sm transition-shadow hover:shadow" asChild>
-                <a href="#products">Lihat Daftar Harga</a>
-              </Button>
-              <Button variant="outline" className="group">
-                Repository <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+              {heroSection.buttons.map(button => (
+                <Button
+                  key={button.label}
+                  variant={button.variant as 'outline' | 'default'}
+                  className="shadow-sm transition-shadow hover:shadow"
+                  asChild
+                >
+                  <Link
+                    href={button.link}
+                    className={`${button.positionIcon === 'right' ? 'flex-row-reverse' : ''} flex items-center gap-2`}
+                  >
+                    {button.icon}
+                    {button.label}
+                  </Link>
+                </Button>
+              ))}
             </div>
 
-            <div className="mt-20 flex flex-col items-center gap-5">
+            {/* <div className="mt-20 flex flex-col items-center gap-5">
               <p className="font-medium text-muted-foreground lg:text-left">
                 Dibangun dengan teknologi <span className="underline underline-offset-2 decoration-sky-500 decoration-wavy ">terbaik:</span>
               </p>
@@ -96,7 +107,7 @@ export function Hero() {
                   />
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

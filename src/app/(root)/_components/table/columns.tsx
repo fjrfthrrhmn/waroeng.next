@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
+import { ProductActions } from '@/app/(root)/_components/table/ProductActions';
+
 import { CATEGORY_PRODUCT } from '@/data/constants/product';
 import { Product } from '@/hooks/api/types';
 import { cn } from '@/lib/utils';
 import { ColumnDef } from '@tanstack/react-table';
-import { EditIcon, Trash2Icon } from 'lucide-react';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -40,19 +40,6 @@ export const columns: ColumnDef<Product>[] = [
     header: 'Aksi',
     enableSorting: false,
     enableHiding: false,
-    cell: ({ row }) => {
-      const product = row.original;
-
-      return (
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => console.log('Edit:', product)}>
-            <EditIcon className="w-4 h-4" />
-          </Button>
-          <Button variant="destructive" size="icon" onClick={() => console.log('Delete:', product.id)}>
-            <Trash2Icon className="w-4 h-4" />
-          </Button>
-        </div>
-      );
-    },
+    cell: ({ row }) => <ProductActions data={row.original} />,
   },
 ];

@@ -33,7 +33,9 @@ export function Hero() {
             </div>
 
             <div className="mt-6 flex justify-center flex-wrap gap-3">
-              <Button className="shadow-sm transition-shadow hover:shadow">Lihat Daftar Harga</Button>
+              <Button className="shadow-sm transition-shadow hover:shadow" asChild>
+                <a href="#products">Lihat Daftar Harga</a>
+              </Button>
               <Button variant="outline" className="group">
                 Repository <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>

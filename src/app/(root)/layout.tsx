@@ -1,6 +1,6 @@
-import { Footer } from '@/components/layouts/footer';
-import { Hero } from './_components/hero';
-import { Summary } from './_components/summary';
+import { Footer } from '@/components/layouts/Footer';
+import { Hero } from './_components/Hero';
+import { Summary } from './_components/Summary';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

@@ -2,10 +2,10 @@
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
-import { FormAddProduct } from '@/app/(root)/_components/form';
+import { FormAddProduct } from '@/app/(root)/_components/Form';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { FilterIcon, PlusIcon } from 'lucide-react';
-import { DataTableControls } from './data-table-controls';
+import { DataTableControls } from './data-table-control';
 import { DataTableFilter } from './data-table-filter';
 import { DataTableSearchbar } from './data-table-searchbar';
 import { DataTableSkeleton } from './data-table-skeleton';
@@ -30,7 +30,7 @@ export function DataTable<TData, TValue>({ columns, data, loading, error, withSe
 
   return (
     <main className="space-y-1.5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         {withSearch && <DataTableSearchbar />}
 
         <div className="flex items-center gap-2">

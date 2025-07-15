@@ -1,4 +1,4 @@
-import { Providers } from '@/components/layouts/providers';
+import { Providers } from '@/components/layouts/Providers';
 import type { Metadata } from 'next';
 import { Inter, Roboto_Mono } from 'next/font/google';
 import './globals.css';

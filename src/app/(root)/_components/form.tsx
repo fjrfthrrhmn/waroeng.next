@@ -4,20 +4,38 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CATEGORY_PRODUCT } from '@/data/constants/product';
-import { productSchema } from '@/data/schema/product';
+import { ProductSchema, productSchema } from '@/data/schema/product';
+import { useProductMutation } from '@/hooks/api/products';
+import { formatPrice, parsePrice } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 export function FormAddProduct() {
   const form = useForm({
     resolver: zodResolver(productSchema),
     mode: 'onChange',
-    defaultValues: { name: '', price: 0, category: '', description: '' },
+    defaultValues: {
+      name: '',
+      price: 1000,
+      category: 'Lainnya',
+      description: '',
+    },
   });
+
+  // Handle
+  const { mutate, isPending } = useProductMutation({ onSuccess: () => form.reset() });
+  const onSubmit = useCallback(
+    (data: ProductSchema) => {
+      if (isPending) return;
+      mutate(data);
+    },
+    [mutate, isPending]
+  );
 
   return (
     <Form {...form}>
-      <form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <FormField
             control={form.control}
@@ -40,7 +58,13 @@ export function FormAddProduct() {
               <FormItem>
                 <FormLabel>Harga</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="Contoh: 3500" {...field} />
+                  <Input
+                    type="number"
+                    placeholder="Contoh: 3500"
+                    {...field}
+                    value={formatPrice(field.value as number)}
+                    onChange={e => field.onChange(parsePrice(e.target.value))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,8 +118,8 @@ export function FormAddProduct() {
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6">
-          {form.formState.isSubmitting ? 'Menyimpan...' : 'Simpan Produk'}
+        <Button type="submit" className="w-full mt-6" disabled={isPending}>
+          {isPending ? 'Menyimpan...' : 'Simpan Produk'}
         </Button>
       </form>
     </Form>

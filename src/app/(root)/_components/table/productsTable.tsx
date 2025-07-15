@@ -8,7 +8,7 @@ export function ProductsTable() {
   const { data, isLoading, isPending, isError } = useProductsQuery();
 
   return (
-    <section className="py-20">
+    <section id="products" className="py-20">
       <Title title="Daftar Barang" description="Daftar barang yang sudah terdaftar" />
       <DataTable columns={columns} data={data || []} loading={isLoading || isPending} error={isError} />
     </section>

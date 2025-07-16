@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { cn } from '@/lib/utils';
 import { VariantProps } from 'class-variance-authority';
 
-interface DataTableControlsProps {
+interface DataTableDrawerProps {
   children: React.ReactNode;
   icon: React.ReactNode;
   title: string;
@@ -12,22 +12,24 @@ interface DataTableControlsProps {
   classNameContent?: string;
 }
 
-export function DataTableControls({ children, icon, variant = 'outline', title, description, classNameContent }: DataTableControlsProps) {
+export function DataTableDrawer({ children, icon, variant = 'outline', title, description, classNameContent }: DataTableDrawerProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant={variant} size="icon">
+        <Button variant={variant} size="icon" key={title}>
           {icon}
           <span className="sr-only">{title}</span>
         </Button>
       </DrawerTrigger>
+
       <DrawerContent>
-        <div className={cn('h-dvh mx-auto w-full max-w-xl', classNameContent)}>
+        <div className={cn('h-dvh mx-auto w-full max-w-xl px-4', classNameContent)}>
           <DrawerHeader>
             <DrawerTitle>{title}</DrawerTitle>
             <DrawerDescription>{description}</DrawerDescription>
           </DrawerHeader>
-          <DrawerFooter>{children}</DrawerFooter>
+
+          {children}
         </div>
       </DrawerContent>
     </Drawer>

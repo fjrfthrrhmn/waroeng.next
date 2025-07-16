@@ -13,6 +13,7 @@ export function Hero() {
           alt="background"
           src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/patterns/square-alt-grid.svg"
           className="[mask-image:radial-gradient(75%_75%_at_center,white,transparent)] opacity-90"
+          priority
           fill
         />
       </div>

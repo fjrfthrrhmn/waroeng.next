@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ProductsTable } from './_components/table/ProductTable';
 
 export const metadata = {
@@ -5,5 +6,9 @@ export const metadata = {
 };
 
 export default async function Home() {
-  return <ProductsTable />;
+  return (
+    <Suspense fallback={null}>
+      <ProductsTable />
+    </Suspense>
+  );
 }

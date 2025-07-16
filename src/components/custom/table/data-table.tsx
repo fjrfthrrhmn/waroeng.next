@@ -2,52 +2,39 @@
 
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
-import { FormAddProduct } from '@/app/(root)/_components/Form';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { FilterIcon, PlusIcon } from 'lucide-react';
-import { DataTableControls } from './data-table-control';
-import { DataTableFilter } from './data-table-filter';
+import { useMemo } from 'react';
 import { DataTableSearchbar } from './data-table-searchbar';
-import { DataTableSkeleton } from './data-table-skeleton';
-import { DataTableSort } from './data-table-sort';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  loading: boolean;
-  error: boolean;
+  status: { loading: boolean; error: boolean };
   withSearch?: boolean;
+  renderActions?: React.ReactNode;
 }
 
-export function DataTable<TData, TValue>({ columns, data, loading, error, withSearch = true }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  status: { loading, error },
+  renderActions,
+  withSearch = true,
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
-  if (loading) return <DataTableSkeleton />;
+  const actionsComponents = useMemo(() => renderActions, [renderActions]);
 
   return (
     <main className="space-y-1.5">
       <div className="flex items-center justify-between gap-2">
         {withSearch && <DataTableSearchbar />}
 
-        <div className="flex items-center gap-2">
-          <DataTableControls icon={<PlusIcon />} title="Tambah Data Baruc" description="Form untuk menambahkan data baru ke dalam tabel.">
-            <FormAddProduct />
-          </DataTableControls>
-
-          <DataTableControls
-            variant="default"
-            icon={<FilterIcon />}
-            title="Pengaturan Tampilan Tabel"
-            description="Sesuaikan urutan, filter, dan kriteria data yang ditampilkan."
-          >
-            <DataTableSort />
-            <DataTableFilter />
-          </DataTableControls>
-        </div>
+        {actionsComponents && <div className="flex items-center gap-2">{actionsComponents}</div>}
       </div>
 
       <div className="rounded-md border">
@@ -77,8 +64,8 @@ export function DataTable<TData, TValue>({ columns, data, loading, error, withSe
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  {error ? 'Ups, terjadi kesalahan' : 'Tidak ada data ditemukan'}
+                <TableCell colSpan={columns.length} className="h-24 py-14 text-center">
+                  {loading ? 'Tunggu sebentar' : error ? 'Ups, terjadi kesalahan' : 'Tidak ada data ditemukan'}
                 </TableCell>
               </TableRow>
             )}
